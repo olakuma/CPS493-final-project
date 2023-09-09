@@ -1,1 +1,1 @@
-# CPS493-gym-project
+# CPS493-final-project
