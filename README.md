@@ -1,1 +1,1 @@
-# CPS493-final-project
+# Exercise App
