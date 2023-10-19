@@ -4,6 +4,10 @@
 
     const isActive = ref(false);
     const session = getSession();
+
+    function doLogin(){
+        login();
+    }
 </script>
 
 <template>
@@ -33,7 +37,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" @click.prevent="doLogin()">
                         Olamide
                     </a>
                     <a class="dropdown-item">

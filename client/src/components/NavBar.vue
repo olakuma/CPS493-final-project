@@ -24,35 +24,41 @@ const isActive = ref(false);
 
             <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active' : isActive }">
                 <div class="navbar-start">
-                    <!-- <RouterLink to="/">Home</RouterLink>
-                    <RouterLink to="/about">About</RouterLink> -->
+                    <!-- <RouterLink to="/about">About</RouterLink> -->
                     
+                    <a class="navbar-item">
+                        <span class="icon">
+                            <i class="fas fa-home"></i>
+                        </span>
+                        <RouterLink to="/">Home</RouterLink>
+                    </a>
+
                     <a class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-person-running"></i>
                         </span>
-                        <span> My Activity </span>
+                        <RouterLink to="/my-activity">My Activity</RouterLink>
                     </a>
 
                     <a class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-chart-line"></i>
                         </span>
-                        <span> Statistics </span>
+                        <RouterLink to="/statistics">Statistics</RouterLink>
                     </a>
 
                     <a class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-people-group"></i>
                         </span>
-                        <span> Friends Activity </span>
+                        <RouterLink to="/friends-activity">Friends Activity</RouterLink>
                     </a>
 
                     <a class="navbar-item">
                         <span class="icon">
                             <i class="fas fa-search"></i>
                         </span>
-                        <span> People Search </span>
+                        <RouterLink to="/people-search">People Search</RouterLink>
                     </a>
 
                     <div class="navbar-item has-dropdown is-hoverable">
