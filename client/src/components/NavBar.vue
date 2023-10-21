@@ -49,7 +49,7 @@ const isActive = ref(false);
 
                     <a class="navbar-item">
                         <span class="icon">
-                            <i class="fas fa-people-group"></i>
+                            <i class="fas fa-user-friends"></i>
                         </span>
                         <RouterLink to="/friends-activity">Friends Activity</RouterLink>
                     </a>
@@ -68,7 +68,7 @@ const isActive = ref(false);
 
                         <div class="navbar-dropdown">
                             <a class="navbar-item">
-                                Users
+                                <RouterLink to="/users">Users</RouterLink>
                             </a>
                         </div>
                     </div>

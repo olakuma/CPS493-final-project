@@ -38,6 +38,12 @@ const router = createRouter({
       name: 'people-search',
       component: () => import('../views/PeopleSearchView.vue'),
       beforeEnter: requireLogin
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import('../views/UsersView.vue'),
+      beforeEnter: requireLogin
     }
   ]
 })

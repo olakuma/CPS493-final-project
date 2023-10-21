@@ -5,9 +5,12 @@ export interface User {
     firstName: string,
     lastName: string,
     email: string,
+    handle: string,
     password: string,
-    role: "admin" | "user";
-    token?: string
+    role: "admin" | "user",
+    isAdmin: string,
+    token?: string,
+    picture: string
 }
 
 export function getUsers(): User[] {

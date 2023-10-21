@@ -5,16 +5,44 @@
             "firstName": "Olamide",
             "lastName": "Kuma",
             "email": "ola@kuma.com",
+            "handle": "Master",
             "password": "123456",
-            "role": "admin"
+            "role": "admin",
+            "isAdmin": "Yes",
+            "picture": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Manchester_United_v_Arsenal%2C_2_December_2021_%2822%29.jpg"
         },
         {
             "id": 2,
             "firstName": "Christiano",
             "lastName": "Ronaldo",
             "email": "chris@cr7.com",
+            "handle": "CR7",
             "password": "123456",
-            "role": "user"
+            "role": "user",
+            "isAdmin": "No",
+            "picture": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg"
+        },
+        {
+            "id": 3,
+            "firstName": "Marcus",
+            "lastName": "Rashford",
+            "email": "marc@10.com",
+            "handle": "Rashy",
+            "password": "123456",
+            "role": "user",
+            "isAdmin": "No",
+            "picture": "https://upload.wikimedia.org/wikipedia/commons/2/24/FWC_2018_-_Round_of_16_-_COL_v_ENG_-_Photo_106.jpg"
+        },
+        {
+            "id": 4,
+            "firstName": "Bruno",
+            "lastName": "Fernandes",
+            "email": "bruno@fern.com",
+            "handle": "Brunooo!",
+            "password": "123456",
+            "role": "user",
+            "isAdmin": "No",
+            "picture": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Bruno_Fernandes_Portugal%2C_2018.jpg"        
         }
     ]
 }

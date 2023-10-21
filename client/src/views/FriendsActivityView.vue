@@ -1,6 +1,7 @@
 <script setup lang="ts">
     import AddWorkoutBadge from '@/components/AddWorkoutBadge.vue';
     import { ref } from 'vue';
+    import { getWorkouts, type Workout } from '@/model/workouts';
 
     const isActive = ref(false);
 
@@ -18,7 +19,7 @@
                     <article class="media box">
                         <figure class="media-left">
                             <p class="image is-64x64">
-                                <img src="client/public/olamide-pp.jpeg">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Manchester_United_v_Arsenal%2C_2_December_2021_%2822%29.jpg">
                             </p>
                         </figure>
                         <div class="media-content">
@@ -29,18 +30,23 @@
                                     Ran through Campus - { "Latitude: -60.72082, Longitude: 91.51827"}
                                 </p>
                                 <div class="columns">
-                                    <div class="column is-half has-text-centered">
-                                        <h3 class="value is-size-3 has-text-weight-bold">2.30 mi</h3>
-                                        <div class="heading">DISTANCE</div>
+                                    <div class="column is-one-quarter has-text-centered">
+                                        <div>
+                                            <br>
+                                            <div class="title is-size-4" style=" margin: 0px;">2.30 mi</div>
+                                            <div class="heading">DISTANCE</div>
+                                        </div>
                                     </div>
-                                    <div class="column is-half has-text-centered">
-                                        <h3 class="value is-size-3 has-text-weight-bold">1:30</h3>
+                                    <div class="column is-one-quarter has-text-centered">
+                                        <br>
+                                        <div class="title is-size-4" style="margin: 0px;">1:30</div>
                                         <div class="heading">DURATION</div>
                                     </div>
-                                    <div class="column">
-                                        <img src="client/public/running.jpg" style="max-height: 100%;">
+                                    <div class="column is-half">
+                                        <img src="https://www.outsideonline.com/wp-content/uploads/2022/01/iStock_89170989_SMALL.jpg" style="max-height: 100%;">
                                     </div>
                                 </div>
+                                
                             </div>
                             <nav class="level is-mobile">
                                 <div class="level-left">

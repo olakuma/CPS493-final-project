@@ -48,6 +48,12 @@
                     <a class="dropdown-item">
                         Christiano Ronaldo
                     </a>
+                    <a class="dropdown-item">
+                        Marcus rashford
+                    </a>
+                    <a class="dropdown-item">
+                        Bruno fernandes
+                    </a>
                     <hr class="dropdown-divider">
                     <a class="dropdown-item">
                         Other Account
