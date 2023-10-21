@@ -1,0 +1,20 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Olamide",
+            "lastName": "Kuma",
+            "email": "ola@kuma.com",
+            "password": "123456",
+            "role": "admin"
+        },
+        {
+            "id": 2,
+            "firstName": "Christiano",
+            "lastName": "Ronaldo",
+            "email": "chris@cr7.com",
+            "password": "123456",
+            "role": "user"
+        }
+    ]
+}

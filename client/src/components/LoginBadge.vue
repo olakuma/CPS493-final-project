@@ -1,12 +1,17 @@
 <script setup lang="ts">
     import { ref } from 'vue';
-    import { getSession, login } from '@/model/session';
+    import { getSession, useLogin } from '@/model/session';
 
     const isActive = ref(false);
     const session = getSession();
+    const { login, logout } = useLogin();
 
-    function doLogin(){
-        login();
+    const doLogin = () => {
+        login('ola@kuma.com', '123456');
+    }
+
+    const doLogout = () => {
+        logout();
     }
 </script>
 
@@ -14,7 +19,7 @@
     <div class="has-text-right" v-if="session.user">
         Welcome {{ session.user.firstName }} {{ session.user.lastName }} <br>
         <small> {{ session.user.email }}
-            <a class="button is-small is-light is-warning" @click.prevent="session.user = null">
+            <a class="button is-small is-light is-warning" @click.prevent="doLogout">
                 <span class="icon">
                     <i class="fas fa-sign-out-alt"></i>
                 </span>

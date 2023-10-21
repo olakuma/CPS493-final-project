@@ -1,27 +1,45 @@
 import { reactive } from "vue";
+import { type User, getUserByEmail } from "./users";
+import { useRouter } from "vue-router";
 
 const session = reactive({
     user: null as User | null,
+    redirectUrl: null as string | null
 })
-
-export interface User {
-    id?: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: "admin" | "user"
-    token?: string
-}
 
 export function getSession() {
     return session;
 }
 
-export function login() {
-    session.user = {
-        firstName: "Test",
-        lastName: "User",
-        email: "test@user.com",
-        role: "admin"
+export function useLogin() {
+    const router = useRouter();
+    return {
+        login(email: string, password: string): User | null {
+            const user = getUserByEmail(email);
+            if(user && user.password == password) {
+                session.user = user;
+
+                router.push(session.redirectUrl || "/")
+                return user;
+            }
+            return null;
+        },
+        logout() {
+            session.user = null;
+            router.push("/login");
+        }
     }
+}
+
+export function login(email: string, password: string): User | null {
+    const user = getUserByEmail(email);
+    if(user && user.password == password) {
+        session.user = user;
+        return user;
+    }
+    return null;
+}
+
+export function logout() {
+    session.user = null;
 }
