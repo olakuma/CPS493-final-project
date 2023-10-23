@@ -9,29 +9,12 @@ export interface Workout {
     latitude: string
     longitude: string
     distance: string
-    distanceText?: string // make distanceText optional
     duration: string
-    durationText: string
     imagesPP?: string // make imagesPP optional
     images: string
 }
+const workouts = data.workouts.map( x => ({...x}) ) as Workout[]
 
-export function getWorkouts(): Workout[] {
-    return data.workouts.map((workout: any) => {
-        return {
-            firstName: workout.firstName,
-            lastName: workout.lastName,
-            userName: workout.userName,
-            time: workout.time,
-            workout: workout.workout,
-            latitude: workout.latitude,
-            longitude: workout.longitude,
-            distance: workout.distance,
-            distanceText: workout["distance-text"] || undefined,
-            duration: workout.duration,
-            durationText: workout["duration-text"],
-            imagesPP: workout["images-pp"] || undefined,
-            images: workout.images
-        }
-    });
+export function getWorkouts() {
+    return workouts;
 }

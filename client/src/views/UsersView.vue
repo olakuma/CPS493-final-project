@@ -1,12 +1,17 @@
 <script setup lang="ts">
+    import { getSession } from '@/model/session';
     import { getUsers } from '@/model/users';
 
-    const users = getUsers();    
-    const adminUsers = users.filter(user => user.role === "admin");
+    const session = getSession(); 
+    const users = getUsers()
+    const role = session.user?.role
+
+    // const adminUsers = users.filter(user => user.role === "admin");
 </script>
 
 <template>
-    <div v-if="adminUsers" class="container">
+    <div>{{ session.user?.firstName }}</div>
+    <div class="container"  v-if="role === 'admin'">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
                 <li><a href="#">My Exercise</a></li>
@@ -62,6 +67,12 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="container" v-else>
+        <div class="notification is-danger">
+            <button class="delete"></button>
+            <strong>Sorry!</strong> You are not authorized to view this page.
         </div>
     </div>
 </template>
