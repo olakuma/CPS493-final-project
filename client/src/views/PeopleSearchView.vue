@@ -4,7 +4,7 @@
 
 <template>
     <div>
-        <div class="title">Go away</div>
+        <div class="Container"></div>
     </div>
 </template>
 

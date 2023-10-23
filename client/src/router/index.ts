@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, type NavigationGuardNext, type RouteLocationNormalized } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { getSession } from '@/model/session';
+import { getUsers } from '@/model/users';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),

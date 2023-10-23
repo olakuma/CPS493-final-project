@@ -9,7 +9,6 @@
 
     const closeModal = () => {
         isActive.value = false;
-        
     }
 </script>
 

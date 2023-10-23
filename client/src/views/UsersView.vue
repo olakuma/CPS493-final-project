@@ -1,11 +1,12 @@
 <script setup lang="ts">
     import { getUsers } from '@/model/users';
 
-    const users = getUsers();
+    const users = getUsers();    
+    const adminUsers = users.filter(user => user.role === "admin");
 </script>
 
 <template>
-    <div class="container">
+    <div v-if="adminUsers" class="container">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
                 <li><a href="#">My Exercise</a></li>

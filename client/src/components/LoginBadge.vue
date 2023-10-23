@@ -1,18 +1,21 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import { getSession, useLogin } from '@/model/session';
+    import { getUsers } from '@/model/users';
 
     const isActive = ref(false);
     const session = getSession();
     const { login, logout } = useLogin();
 
-    const doLogin = () => {
-        login('ola@kuma.com', '123456');
+    const doLogin = (email: string, password: string) => {
+        login(email, password);
     }
 
     const doLogout = () => {
         logout();
     }
+
+    const users = getUsers();
 </script>
 
 <template>
@@ -42,32 +45,14 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
                 <div class="dropdown-content">
-                    <a class="dropdown-item" @click.prevent="doLogin()">
-                        Olamide
-                    </a>
-                    <a class="dropdown-item">
-                        Christiano Ronaldo
-                    </a>
-                    <a class="dropdown-item">
-                        Marcus rashford
-                    </a>
-                    <a class="dropdown-item">
-                        Bruno fernandes
+                    <a v-for="user in users" class="dropdown-item" @click.prevent="doLogin(user.email, user.password)">
+                        {{ user.firstName }} {{ user.lastName }}
                     </a>
                     <hr class="dropdown-divider">
                     <a class="dropdown-item">
                         Other Account
                     </a>
                 </div>
-            </div>
-        </div>
-
-        <div class="navbar-item">
-            <div class="button is-light" href="https://twitter.com/intent/tweet?text=Bulma:%20a%20modern%20CSS%20framework%20based%20on%20Flexbox&hashtags=bulmaio&url=https://bulma.io&via=jgthms">
-                <span class="icon">
-                    <i class="fa-brands fa-twitter"></i>
-                </span>
-                <span>Tweet</span>
             </div>
         </div>
     </div>
