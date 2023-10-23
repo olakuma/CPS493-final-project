@@ -35,7 +35,7 @@ const isActive = ref(false);
 
                     <a class="navbar-item">
                         <span class="icon">
-                            <i class="fas fa-person-running"></i>
+                            <i class="fas fa-running"></i>
                         </span>
                         <RouterLink to="/my-activity">My Activity</RouterLink>
                     </a>
