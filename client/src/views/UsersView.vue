@@ -6,11 +6,9 @@
     const users = getUsers()
     const role = session.user?.role
 
-    // const adminUsers = users.filter(user => user.role === "admin");
 </script>
 
 <template>
-    <div>{{ session.user?.firstName }}</div>
     <div class="container"  v-if="role === 'admin'">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
