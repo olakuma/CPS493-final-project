@@ -23,3 +23,9 @@ export function getWorkouts() {
 export function getWorkoutByEmail(email: string): Workout[] {
     return workouts.filter(workout => workout.email === email);
 }
+
+// not working. Why?
+export function deleteWorkOut(workout: Workout) {
+    const index = workouts.findIndex( x => x.email === workout.email );
+    workouts.splice(index, 1);
+}
