@@ -1,9 +1,11 @@
 <script setup lang="ts">
     import { getSession } from '@/model/session';
     import { getUsers } from '@/model/users';
+    import { deleteUser } from '@/model/users';
+    import { ref } from 'vue';
 
     const session = getSession(); 
-    const users = getUsers()
+    const users = ref(getUsers());
     const role = session.user?.role
 
 </script>
@@ -55,7 +57,7 @@
                                 <span>Edit</span>
                             </button>
                             &#160
-                            <button class="button is-small is-danger">
+                            <button class="button is-small is-danger" @click.prevent="deleteUser(user)">
                                 <span class="icon">
                                     <i class="fas fa-trash"></i>
                                 </span>

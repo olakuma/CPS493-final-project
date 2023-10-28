@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import data from "../data/users.json";
 
 export interface User {
@@ -13,10 +14,19 @@ export interface User {
     picture: string
 }
 
-export function getUsers(): User[] {
-    return data.users.map( x => ({ ...x, role: x.id <= 1 ? 'admin' : 'user' }) );
+const users = ref(data.users.map( x => ({ ...x, role: x.id <= 1 ? 'admin' : 'user' }) ) as User[])
+
+export function getUsers() {
+    return users;
 }
 
 export function getUserByEmail(email: string) : User | undefined {
-    return getUsers().find( x => x.email === email );
+    return users.value.find( x => x.email === email );
+}
+
+export function deleteUser(user: User) {
+    const index = users.value.findIndex( x => x.email === user.email );
+    if (index !== -1) {
+        users.value.splice(index, 1);
+    }
 }
