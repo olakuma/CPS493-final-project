@@ -1,4 +1,5 @@
 import data from "@/data/workouts.json"
+import { ref } from "vue"
 
 export interface Workout {
     firstName: string
@@ -14,18 +15,19 @@ export interface Workout {
     imagesPP?: string // make imagesPP optional
     images: string
 }
-const workouts = data.workouts.map( x => ({...x}) ) as Workout[]
+const workouts = ref(data.workouts.map( x => ({...x}) ) as Workout[])
 
 export function getWorkouts() {
     return workouts;
 }
 
 export function getWorkoutByEmail(email: string): Workout[] {
-    return workouts.filter(workout => workout.email === email);
+    return workouts.value.filter((workout: Workout) => workout.email === email);
 }
 
-// not working. Why?
-export function deleteWorkOut(workout: Workout) {
-    const index = workouts.findIndex( x => x.email === workout.email );
-    workouts.splice(index, 1);
+export function deleteWorkout(workout: Workout) {
+    const index = workouts.value.findIndex( x => x.email === workout.email );
+    if (index !== -1) {
+        workouts.value.splice(index, 1);
+    }
 }

@@ -1,16 +1,12 @@
 <script setup lang="ts">
     import AddWorkoutBadge from '@/components/AddWorkoutBadge.vue';
     import { getSession } from '@/model/session';
-    import { getWorkouts, getWorkoutByEmail, deleteWorkOut } from '@/model/workouts';
+    import { getWorkouts, getWorkoutByEmail, deleteWorkout } from '@/model/workouts';
     import { ref } from 'vue';
     
     const user = getSession().user;
 
     const workouts = ref(getWorkouts())
-
-    const deleteWorkOut = (workout: { firstName: string; lastName: string; userName: string; email: string; time: string; workout: string; latitude: string; longitude: string; distance: string; duration: string; imagesPP?: string | undefined; images: string; }) => {
-        workouts.value = workouts.value.filter(w => w !== workout);
-    };
 </script>
 
 <template>
@@ -69,7 +65,7 @@
                                 </nav>
                             </div>
                             <div class="media-right">
-                                <button class="delete" aria-label="close" @click="deleteWorkOut(workout)"></button>
+                                <button class="delete" aria-label="close" @click.prevent="deleteWorkout(workout)"></button>
                             </div>
                         </article>
                     </div>
