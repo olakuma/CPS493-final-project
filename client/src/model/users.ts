@@ -7,7 +7,7 @@ export interface User {
     lastName: string,
     email: string,
     handle: string,
-    password?: string,
+    password: string,
     role?: "admin" | "user",
     isAdmin: string,
     token?: string,
