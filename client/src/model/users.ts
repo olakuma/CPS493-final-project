@@ -7,11 +7,11 @@ export interface User {
     lastName: string,
     email: string,
     handle: string,
-    password: string,
-    role: "admin" | "user",
+    password?: string,
+    role?: "admin" | "user",
     isAdmin: string,
     token?: string,
-    picture: string
+    picture?: string
 }
 
 const users = ref(data.users.map( x => ({ ...x, role: x.id <= 1 ? 'admin' : 'user' }) ) as User[])
@@ -28,5 +28,16 @@ export function deleteUser(user: User) {
     const index = users.value.findIndex( x => x.email === user.email );
     if (index !== -1) {
         users.value.splice(index, 1);
+    }
+}
+
+export function addUser(user: User) {
+    users.value.push(user);
+}
+
+export function updateUser(user: User) {
+    const index = users.value.findIndex( x => x.email === user.email );
+    if (index !== -1) {
+        users.value[index] = user;
     }
 }

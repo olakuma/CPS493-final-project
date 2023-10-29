@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { getSession } from '@/model/session';
     import { getUsers } from '@/model/users';
-    import { deleteUser } from '@/model/users';
+    import { deleteUser, updateUser } from '@/model/users';
     import { ref } from 'vue';
+    import AddUser from '@/components/AddUser.vue';
 
     const session = getSession(); 
     const users = ref(getUsers());
@@ -20,12 +21,7 @@
             </ul>
         </nav>
         <div>
-            <button class="button is-success">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span>Add a New User</span>
-            </button>
+            <AddUser />
         </div>
         <br>
         <div>
@@ -50,7 +46,7 @@
                         <td> {{ user.handle }} </td>
                         <td> {{ user.isAdmin }} </td>
                         <td>
-                            <button class="button is-small is-info">
+                            <button class="button is-small is-info" @click.prevent="updateUser(user)">
                                 <span class="icon">
                                     <i class="fas fa-edit"></i>
                                 </span>
