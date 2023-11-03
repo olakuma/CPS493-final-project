@@ -1,13 +1,18 @@
 <script setup lang="ts">
     import { getSession } from '@/model/session';
-    import { getUsers } from '@/model/users';
-    import { deleteUser, updateUser } from '@/model/users';
+    import { getUsers, type User } from '@/model/users';
+    import { deleteUser, updateUser, editUser } from '@/model/users';
     import { ref } from 'vue';
     import AddUser from '@/components/AddUser.vue';
 
     const session = getSession(); 
     const users = ref(getUsers());
     const role = session.user?.role
+
+    const isEditing = ref(false);
+
+    const editedUser = ref({} as User);
+
 
 </script>
 

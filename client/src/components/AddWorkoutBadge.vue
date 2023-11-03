@@ -1,5 +1,12 @@
 <script setup lang="ts">
     import { ref } from 'vue';
+    import { type Workout, addWorkout, getWorkouts, getWorkoutByEmail } from '@/model/workouts';
+    import { getSession } from '@/model/session';
+
+    const session = getSession();
+    const email = session.user?.email || ''
+
+    const workouts = ref(getWorkoutByEmail(email))
     
     const isActive = ref(false);
 
@@ -9,6 +16,38 @@
 
     const closeModal = () => {
         isActive.value = false;
+        /* Resets the form once it's been closed */
+        workout.value = "";
+        duration.value = "";
+        distance.value = "";
+        duration.value = "";
+        location.value = "";
+    }
+
+    const currentUser = email;
+    const fname = ref(session.user?.firstName || '');
+    const lname = ref(session.user?.lastName || '');
+    const userName = ref(session.user?.handle || '');
+    const workout = ref("");
+    const duration = ref("");
+    const distance = ref("");
+    const time = ref("5 secs ago");
+    const location = ref("- at ")
+
+    function addNewWorkout(currentUser: string, fname: string, lname: string, workout: string, duration: string, distance: string, time: string, userName: string, location: string) {
+        const newWorkout: Workout = {
+            email: currentUser,
+            firstName: fname,
+            lastName: lname,
+            workout: workout,
+            duration: duration,
+            distance: distance,
+            time: time,
+            userName: userName,
+            location: location,
+        }
+        addWorkout(newWorkout)
+        closeModal()
     }
 </script>
 
@@ -16,7 +55,7 @@
     <button class="button is-info is-fullwidth" @click="toggleModal">Add Workout</button>
     <form>
         <div class="modal" :class="{ 'is-active' : isActive }" @click="isActive = !isActive"> 
-            <div class="modal-background" @click="closeModal"></div>
+            <div class="modal-background" @click.prevent="closeModal"></div>
             <div class="modal-card" @click.stop>
                 <header class="modal-card-head">
                     <p class="modal-card-title"> Add a Workout </p>
@@ -24,23 +63,26 @@
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
-                        <label class="label" for="name"> Title </label>
-                        <input class="input" type="text">
+                        <label class="label" for="name"> Workout </label>
+                        <input class="input" type="text" placeholder="Workout" v-model="workout">
                     </div>
                     <div class="field">
                         <label class="label" for="date"> Date </label>
                         <div class="control has-icons-right">
                             <input class="input" type="date" placeholder="mm/dd/yy">
-                            
                         </div>
                     </div>
                     <div class="field">
                         <label class="label" for="duration"> Duration </label>
-                        <input class="input" type="text">
+                        <input class="input" type="text" v-model="duration">
+                    </div>
+                    <div class="field">
+                        <label class="label" for="duration"> Distance </label>
+                        <input class="input" type="text" v-model="distance">
                     </div>
                     <div class="field">
                         <label class="label" for="location"> Location </label>
-                        <input class="input" type="text">
+                        <input class="input" type="text" v-model="location">
                     </div>
                     <div class="field">
                         <label class="label" for="picture"> Picture </label>
@@ -63,7 +105,7 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success"> Save changes </button>
+                    <button class="button is-success" @click.prevent="addNewWorkout(currentUser, fname, lname, workout, duration, distance, time, userName, location)"> Save changes </button>
                     <button class="button" @click.prevent="closeModal"> Cancel </button>
                 </footer>
             </div>

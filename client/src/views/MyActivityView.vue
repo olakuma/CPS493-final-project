@@ -21,15 +21,16 @@
                         <article class="media box" v-if="workout.email === user?.email">
                             <figure class="media-left">
                                 <p class="image is-64x64">
-                                    <img :src="workout.imagesPP">
+                                    <img :src="user.picture">
                                 </p>
                             </figure>
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <strong>{{ workout.firstName }} {{ workout.lastName }}</strong> <small>{{ workout.userName }}</small> <small>{{ workout.time }}</small>
+                                        <strong>{{ user.firstName }} {{ user.lastName }}</strong> <small>@ {{ user.handle }}</small> <small>{{ workout.time }}</small>
                                         <br>
-                                        {{ workout.workout }} - { "Latitude: {{ workout.latitude }}, Longitude: {{ workout.longitude }}"}
+                                        {{ workout.workout }} {{ workout.location }}
+                                        - { "Latitude: {{ workout.latitude }}, Longitude: {{ workout.longitude }}"}
                                     </p>
                                     <div class="columns">
                                         <div class="column is-one-quarter has-text-centered">

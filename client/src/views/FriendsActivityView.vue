@@ -1,11 +1,14 @@
 <script setup lang="ts">
     import AddWorkoutBadge from '@/components/AddWorkoutBadge.vue';
     import { ref } from 'vue';
-    import { getWorkouts, type Workout } from '@/model/workouts';
+    import { deleteWorkout, getWorkouts, type Workout } from '@/model/workouts';
     import { getSession } from '@/model/session';
 
     const workouts = ref(getWorkouts())
     const session = getSession();
+    const user = getSession().user;
+
+    const role = session.user?.role
     
 </script>
 
@@ -26,9 +29,10 @@
                         <div class="media-content">
                             <div class="content">
                                 <p>
-                                    <strong>{{ workout.firstName }} {{ workout.lastName }}</strong> <small>{{ workout.userName }}</small> <small>10 min ago</small>
+                                    <strong>{{ workout.firstName }} {{ workout.lastName }}</strong> <small>@ {{ workout.userName }}</small> <small>{{ workout.time }}</small>
                                     <br>
-                                    {{ workout.workout }} - { "Latitude: {{ workout.latitude }}, Longitude: {{ workout.latitude }}"}
+                                    {{ workout.workout }} {{ workout.location }}
+                                    - { "Latitude: {{ workout.latitude }}, Longitude: {{ workout.latitude }}"}
                                 </p>
                                 <div class="columns">
                                     <div class="column is-one-quarter has-text-centered">
