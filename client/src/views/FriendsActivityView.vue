@@ -68,10 +68,9 @@
                             </nav>
                         </div>
                         <div class="media-right">
-                            <button class="delete" aria-label="close"></button>
+                            <button class="delete" aria-label="close" @click.prevent="deleteWorkout(workout)" v-if="role === 'admin'"></button>
                         </div>
                     </article>
-                    
                 </div>
             </div>
         </div>
