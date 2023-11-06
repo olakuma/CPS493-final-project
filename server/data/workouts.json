@@ -1,9 +1,10 @@
 {
     "workouts": [
         {
+            "id": 1,
             "firstName": "Olamide",
             "lastName": "Kumapayi",
-            "userName": "@olakuma",
+            "userName": "olakuma",
             "email": "ola@kuma.com",
             "time": "10 min ago",
             "workout": "Ran through campus",
@@ -15,9 +16,10 @@
             "images": "https://www.outsideonline.com/wp-content/uploads/2022/01/iStock_89170989_SMALL.jpg"
         },
         {
+            "id": 2,
             "firstName": "Christiano",
             "lastName": "Ronaldo",
-            "userName": "@cr7",
+            "userName": "cr7",
             "email": "chris@cr7.com",
             "time": "20 min ago",
             "workout": "Swim",
@@ -29,9 +31,10 @@
             "images": "https://baltimorediary.typepad.com/.a/6a00d8341d75c753ef0120a611ca3c970c-pi"
         },
         {
+            "id": 3,
             "firstName": "Bruno",
             "lastName": "Fernandes",
-            "userName": "@brunooo",
+            "userName": "brunooo",
             "email": "bruno@fern.com",
             "time": "35 min ago",
             "workout": "Went Runing",
@@ -43,9 +46,10 @@
             "images": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Ludovic_and_Lauren_%288425515069%29.jpg"
         },
         {
+            "id": 4,
             "firstName": "Marcus",
             "lastName": "Rashford",
-            "userName": "@rashyyy",
+            "userName": "rashyyy",
             "email": "marc@10.com",
             "time": "1 hr ago ago",
             "workout": "Played Soccer",
