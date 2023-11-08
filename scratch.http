@@ -7,8 +7,8 @@ http://localhost:3000/api/v1/workouts
 
 ###
 POST http://localhost:3000/api/v1/workouts
-
 Content-Type: application/json
+
 {
     "id": 5,
     "firstName": "Mark",
