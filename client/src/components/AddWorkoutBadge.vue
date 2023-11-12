@@ -52,7 +52,7 @@
 </script>
 
 <template>
-    <button class="button is-info is-fullwidth" @click="toggleModal">Add Workout</button>
+    <button class="button is-info is-fullwidth" @click.prevent="toggleModal">Add Workout</button>
     <form>
         <div class="modal" :class="{ 'is-active' : isActive }" @click="isActive = !isActive"> 
             <div class="modal-background" @click.prevent="closeModal"></div>

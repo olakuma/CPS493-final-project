@@ -1,18 +1,16 @@
 <script setup lang="ts">
     import { getSession } from '@/model/session';
     import { getUsers, type User } from '@/model/users';
-    import { deleteUser, updateUser, editUser } from '@/model/users';
+    import { deleteUser } from '@/model/users';
     import { ref } from 'vue';
     import AddUser from '@/components/AddUser.vue';
+    import EditUser from '@/components/EditUser.vue';
 
     const session = getSession(); 
-    const users = ref(getUsers());
+    const users = ref(getUsers().value as User[]);
     const role = session.user?.role
 
-    const isEditing = ref(false);
-
-    const editedUser = ref({} as User);
-
+    const selectedUser = ref({} as User);
 
 </script>
 
@@ -36,14 +34,14 @@
                         <th>  </th>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Emails</th>
-                        <th>Handle</th>
+                        <th>Email</th>
+                        <th>Username</th>
                         <th>Is Admin</th>
                         <th>  </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in users">
+                    <tr v-for="user in users" :key="user.id">
                         <td> <img :src="user.picture" alt="user picture" style="max-height: 50px;"> </td>
                         <td> {{ user.firstName }} </td>
                         <td> {{ user.lastName }} </td>
@@ -51,18 +49,12 @@
                         <td> {{ user.handle }} </td>
                         <td> {{ user.isAdmin }} </td>
                         <td>
-                            <button class="button is-small is-info" @click.prevent="updateUser(user)">
-                                <span class="icon">
-                                    <i class="fas fa-edit"></i>
-                                </span>
-                                <span>Edit</span>
-                            </button>
+                            <EditUser :email="user.email" />
                             &#160
                             <button class="button is-small is-danger" @click.prevent="deleteUser(user)">
                                 <span class="icon">
                                     <i class="fas fa-trash"></i>
                                 </span>
-                                <span>Delete</span>
                             </button>
                         </td>
                     </tr>

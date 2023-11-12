@@ -35,19 +35,9 @@ export function addUser(user: User) {
     users.value.push(user);
 }
 
-export function updateUser(user: User) {
-    const index = users.value.findIndex( x => x.email === user.email );
+export function editUser(user: User) {
+    const index = users.value.findIndex( x => x.id === user.id );
     if (index !== -1) {
         users.value[index] = user;
     }
-}
-
-export function editUser(user: User, id: number, firstName: string, lastName: string, email: string, password: string, handle: string, isAdmin: string) {
-    user.id = id;
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
-    user.password = password;
-    user.handle = handle;
-    user.isAdmin = isAdmin;
 }

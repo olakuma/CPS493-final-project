@@ -2,7 +2,8 @@
 
 const path = require('path')
 const express = require('express');
-const workoutController = require('./controllers/workouts')
+const workoutController = require('./controllers/workouts');
+const userController = require('./controllers/users');
 const app = express();  //instantiate express
 
 const PORT = 3000;
@@ -12,6 +13,7 @@ app
     .use(express.json())
 
     .use('/api/v1/workouts', workoutController)
+    .use('/api/v1/users', userController)
 
     .get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../client/dist/index.html'))

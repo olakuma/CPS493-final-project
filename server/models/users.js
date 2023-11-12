@@ -1,73 +1,21 @@
 // @ts-check
 /**
-* @typedef {Object} Bank
-* @property {string} cardExpire
-* @property {string} cardNumber
-* @property {string} cardType
-* @property {string} currency
-* @property {string} iban
-*/
+ * @typedef {Object} User
+ * @property {number} id - The user's ID.
+ * @property {string} firstName - The user's first name.
+ * @property {string} lastName - The user's last name.
+ * @property {string} email - The user's email address.
+ * @property {string} userName - The user's handle.
+ * @property {string} password - The user's password.
+ * @property {string} role - The user's role.
+ * @property {string} isAdmin - Whether the user is an admin.
+ * @property {string} picture - The URL of the user's picture.
+ */
 
 /**
-* @typedef {Object} Coordinates
-* @property {number} lat
-* @property {number} lng
-*/
-
-/**
-* @typedef {Object} Address
-* @property {string} address
-* @property {string} [city]
-* @property {Coordinates} coordinates
-* @property {string} postalCode
-* @property {string} state
-*/
-
-/**
-* @typedef {Object} Company
-* @property {Address} address
-* @property {string} department
-* @property {string} name
-* @property {string} title
-*/
-
-/**
-* @typedef {Object} BaseUser
-* @property {string} firstName
-* @property {string} lastName
-* @property {string} maidenName
-* @property {number} age
-* @property {string} gender
-* @property {string} email
-* @property {string} phone
-* @property {string} username
-* @property {string} password
-* @property {string} birthDate
-* @property {string} image
-* @property {string} bloodGroup
-* @property {number} height
-* @property {string} macAddress
-* @property {string} university
-* @property {Bank} bank
-* @property {Company} company
-* @property {string} ein
-* @property {string} ssn
-* @property {string} userAgent
-*/
-
-/**
-* @typedef {Object} HasId
-* @property {number} id
-*/
-
-/**
-* @typedef {BaseUser & HasId} User
-*/
-
-/**
-* @type { {users: User[]} }
-*/
-// @ts-ignore
+ * @typedef {Object} Users
+ * @property {User[]} users - An array of users.
+ */
 const data = require("../data/users.json");
 
 /**
@@ -94,13 +42,13 @@ function search(query) {
      x.firstName.toLowerCase().includes(query.toLowerCase()) ||
      x.lastName.toLowerCase().includes(query.toLowerCase()) ||
      x.email.toLowerCase().includes(query.toLowerCase()) ||
-     x.username.toLowerCase().includes(query.toLowerCase()) 
+     x.userName.toLowerCase().includes(query.toLowerCase()) 
    );
  });
 }
 
 /**
-* @param {BaseUser} values - The user to create.
+* @param {User} values - The user to create.
 * @returns {User} The created user.
 */
 function create(values) {
@@ -114,14 +62,14 @@ function create(values) {
 }
 
 /**
-* @param {BaseUser} values - The user to create.
+* @param {User} values - The user to create.
 * @returns {User} The created user.
 */
 function register(values) {
  // register is like create but with validation
  // and some extra logic
 
- const exists = data.users.some(x => x.username === values.username);
+ const exists = data.users.some(x => x.userName === values.userName);
  if(exists) {
    throw new Error('Username already exists');
  }
