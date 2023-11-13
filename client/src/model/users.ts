@@ -35,7 +35,7 @@ export function addUser(user: User) {
     users.value.push(user);
 }
 
-export function editUser(user: User) {
+export function updateUser(user: User) {
     const index = users.value.findIndex( x => x.id === user.id );
     if (index !== -1) {
         users.value[index] = user;

@@ -53,7 +53,7 @@
 
 <template>
     <button class="button is-info is-fullwidth" @click.prevent="toggleModal">Add Workout</button>
-    <form>
+    <form @submit.prevent="addNewWorkout(currentUser, fname, lname, workout, duration, distance, time, userName, location)">
         <div class="modal" :class="{ 'is-active' : isActive }" @click="isActive = !isActive"> 
             <div class="modal-background" @click.prevent="closeModal"></div>
             <div class="modal-card" @click.stop>
@@ -105,7 +105,7 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success" @click.prevent="addNewWorkout(currentUser, fname, lname, workout, duration, distance, time, userName, location)"> Save changes </button>
+                    <button class="button is-success" type="submit"> Add Workout </button>
                     <button class="button" @click.prevent="closeModal"> Cancel </button>
                 </footer>
             </div>

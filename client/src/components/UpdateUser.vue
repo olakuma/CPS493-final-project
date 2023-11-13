@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { editUser, getUserByEmail, type User } from '@/model/users';
+    import { updateUser, getUserByEmail, type User } from '@/model/users';
     import { ref, defineProps } from 'vue';
 
     const props = defineProps<{
@@ -18,11 +18,9 @@
         isActive.value = false;
     }
 
-
-
     function editExistingUser() {
         if(user.value){
-            editUser(user.value)
+            updateUser(user.value)
         }
         closeToggle()
     }

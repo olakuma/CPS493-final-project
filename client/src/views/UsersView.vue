@@ -4,7 +4,7 @@
     import { deleteUser } from '@/model/users';
     import { ref } from 'vue';
     import AddUser from '@/components/AddUser.vue';
-    import EditUser from '@/components/EditUser.vue';
+    import UpdateUser from '@/components/UpdateUser.vue';
 
     const session = getSession(); 
     const users = ref(getUsers().value as User[]);
@@ -49,7 +49,7 @@
                         <td> {{ user.handle }} </td>
                         <td> {{ user.isAdmin }} </td>
                         <td>
-                            <EditUser :email="user.email" />
+                            <UpdateUser :email="user.email" />
                             &#160
                             <button class="button is-small is-danger" @click.prevent="deleteUser(user)">
                                 <span class="icon">
