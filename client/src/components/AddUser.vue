@@ -29,9 +29,9 @@
     const handle = ref("");
     const isAdmin = ref("");
 
-    function addNewUser(firstName: string, lastName: string, email: string, password: string, handle: string, isAdmin: string) {
+    async function addNewUser(firstName: string, lastName: string, email: string, password: string, handle: string, isAdmin: string) {
         const newUser: User = {
-            id: users.length + 1,
+            id: (await users).length + 1,
             firstName: firstName,
             lastName: lastName,
             email: email,

@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import data from "../data/users.json";
+import { api } from "./session";
 
 export interface User {
     id?: number,
@@ -14,30 +14,32 @@ export interface User {
     picture?: string
 }
 
-const users = ref(data.users.map( x => ({ ...x, role: x.id <= 1 ? 'admin' : 'user' }) ) as User[])
-
-export function getUsers() {
-    return users;
+export function getUsers(): Promise<User[]> {
+    return api("users");
 }
 
-export function getUserByEmail(email: string) : User | undefined {
-    return users.value.find( x => x.email === email );
+export async function getUserByEmail(email: string) : Promise<User | undefined> {
+    const users = await getUsers();
+    return users.find( x => x.email === email );
 }
 
-export function deleteUser(user: User) {
-    const index = users.value.findIndex( x => x.email === user.email );
+export async function deleteUser(user: User) {
+    const users = await getUsers();
+    const index = users.findIndex( x => x.email === user.email );
     if (index !== -1) {
-        users.value.splice(index, 1);
+        users.splice(index, 1);
     }
 }
 
-export function addUser(user: User) {
-    users.value.push(user);
+export async function addUser(user: User) {
+    const users = await getUsers();
+    users.push(user);
 }
 
-export function updateUser(user: User) {
-    const index = users.value.findIndex( x => x.id === user.id );
+export async function updateUser(user: User) {
+    const users = await getUsers()
+    const index = users.findIndex( x => x.id === user.id );
     if (index !== -1) {
-        users.value[index] = user;
+        users[index] = user;
     }
 }

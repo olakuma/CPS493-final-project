@@ -2,12 +2,20 @@
     import { getSession } from '@/model/session';
     import { getUsers, type User } from '@/model/users';
     import { deleteUser } from '@/model/users';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import AddUser from '@/components/AddUser.vue';
     import UpdateUser from '@/components/UpdateUser.vue';
 
     const session = getSession(); 
-    const users = ref(getUsers().value as User[]);
+    // const users = ref([] as User[])
+    // getUsers().then((data) => {
+    //     users.value = data;
+    // })
+    let users: User[] = [];
+    onMounted(async () => {
+        users = await getUsers();
+    });
+
     const role = session.user?.role
 
 </script>

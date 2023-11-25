@@ -1,7 +1,7 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import { getSession, useLogin } from '@/model/session';
-    import { getUsers } from '@/model/users';
+    import { getUsers, type User } from '@/model/users';
 
     const isActive = ref(false);
     const session = getSession();
@@ -15,7 +15,11 @@
         logout();
     }
 
-    const users = getUsers();
+    // const users = getUsers();
+    let users: User[] = [];
+    onMounted(async () => {
+        users = await getUsers();
+    });
 </script>
 
 <template>

@@ -9,9 +9,9 @@
     const isActive = ref(false);
     const user = ref(undefined as User | undefined)
 
-    const toggle = () => {
+    const toggle = async () => {
         isActive.value = !isActive.value;
-        user.value = getUserByEmail(props.email)
+        user.value = await getUserByEmail(props.email)
     }
 
     const closeToggle = () => {
