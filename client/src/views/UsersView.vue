@@ -10,8 +10,6 @@
     const users = ref(getUsers().value as User[]);
     const role = session.user?.role
 
-    const selectedUser = ref({} as User);
-
 </script>
 
 <template>
