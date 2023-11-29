@@ -11,9 +11,9 @@
     // getUsers().then((data) => {
     //     users.value = data;
     // })
-    let users: User[] = [];
+    const users = ref([] as User[])
     onMounted(async () => {
-        users = await getUsers();
+        users.value = await getUsers();
     });
 
     const role = session.user?.role
