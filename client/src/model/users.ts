@@ -6,7 +6,7 @@ export interface User {
     firstName: string,
     lastName: string,
     email: string,
-    handle: string,
+    userName: string,
     password: string,
     role?: "admin" | "user",
     isAdmin: string,

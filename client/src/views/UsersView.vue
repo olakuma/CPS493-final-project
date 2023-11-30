@@ -52,7 +52,7 @@
                         <td> {{ user.firstName }} </td>
                         <td> {{ user.lastName }} </td>
                         <td> {{ user.email }} </td>
-                        <td> {{ user.handle }} </td>
+                        <td> {{ user.userName }} </td>
                         <td> {{ user.isAdmin }} </td>
                         <td>
                             <UpdateUser :email="user.email" />

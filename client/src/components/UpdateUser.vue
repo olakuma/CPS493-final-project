@@ -55,7 +55,7 @@
                 </div>
                 <div class="field">
                     <label class="label" for="email">Username</label>
-                    <input class="input" type="handle" placeholder="Username" v-model="user.handle">
+                    <input class="input" type="handle" placeholder="Username" v-model="user.userName">
                 </div>
                 <div class="field">
                     <label class="label" for="isAdmin">Is Admin</label>
