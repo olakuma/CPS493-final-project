@@ -27,7 +27,7 @@
     const currentUser = email;
     const fname = ref(session.user?.firstName || '');
     const lname = ref(session.user?.lastName || '');
-    const userName = ref(session.user?.handle || '');
+    const userName = ref(session.user?.userName || '');
     const workout = ref("");
     const duration = ref("");
     const distance = ref("");

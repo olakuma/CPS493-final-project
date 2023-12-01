@@ -27,7 +27,7 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <strong>{{ user.firstName }} {{ user.lastName }}</strong> <small>@{{ user.handle }}</small> <small>{{ workout.time }}</small>
+                                        <strong>{{ user.firstName }} {{ user.lastName }}</strong> <small>@{{ user.userName }}</small> <small>{{ workout.time }}</small>
                                         <br>
                                         {{ workout.workout }} {{ workout.location }}
                                         - { "Latitude: {{ workout.latitude }}, Longitude: {{ workout.longitude }}"}
