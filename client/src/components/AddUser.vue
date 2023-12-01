@@ -15,7 +15,7 @@
         lastName.value = "";
         email.value = "";
         password.value = "";
-        handle.value = "";
+        userName.value = "";
         isAdmin.value = "";
     }
 
@@ -26,17 +26,17 @@
     const lastName = ref("");
     const email = ref("");
     const password = ref("");
-    const handle = ref("");
+    const userName = ref("");
     const isAdmin = ref("");
 
-    async function addNewUser(firstName: string, lastName: string, email: string, password: string, handle: string, isAdmin: string) {
+    async function addNewUser(firstName: string, lastName: string, email: string, password: string, userName: string, isAdmin: string) {
         const newUser: User = {
             id: (await users).length + 1,
             firstName: firstName,
             lastName: lastName,
             email: email,
             password: password,
-            handle: handle,
+            userName: userName,
             isAdmin: isAdmin
         }
         addUser(newUser)
@@ -80,7 +80,7 @@
                         </div>
                         <div class="field">
                             <label class="label" for="handle">Handle</label>
-                            <input class="input" type="text" placeholder="Handle" v-model="handle">
+                            <input class="input" type="text" placeholder="Handle" v-model="userName">
                         </div>
                         <div class="field">
                             <label class="label" for="isAdmin">Is Admin</label>
@@ -94,7 +94,7 @@
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                    <button class="button is-success" @click.prevent="addNewUser(firstName, lastName, email, password, handle, isAdmin)"> Save changes </button>
+                    <button class="button is-success" @click.prevent="addNewUser(firstName, lastName, email, password, userName, isAdmin)"> Save changes </button>
                     <button class="button" @click.prevent="closeToggle"> Cancel </button>
                 </footer>
                 </div>
