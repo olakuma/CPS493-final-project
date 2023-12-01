@@ -2,11 +2,14 @@
 
 const path = require('path')
 const express = require('express');
+require('dotenv').config();
 const workoutController = require('./controllers/workouts');
 const userController = require('./controllers/users');
 const app = express();  //instantiate express
 
-const PORT = 3000;
+const mongo = require("./models/mongo");
+
+const PORT = process.env.PORT ?? 3000;
 
 app
     .use('/', express.static(path.join(__dirname, '../client/dist/')))
