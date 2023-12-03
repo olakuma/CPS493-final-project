@@ -3,7 +3,10 @@ const router = express.Router();
 const { getAll, create, get, remove, search, update } = require('../models/workouts')
 
 router.get('/', (req, res, next) => {
-    res.send(getAll());
+    getAll()
+    .then((workouts) => {
+        res.send(workouts);
+    }).catch(next);
 })
 .get('/search', (req, res, next) => {
     const results = search(req.query.q);

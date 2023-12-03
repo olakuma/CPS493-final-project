@@ -1,11 +1,20 @@
+const { ObjectId, connect } = require('./mongo')
 const data = require('../data/workouts.json');
+
+const COLLECTION_NAME = 'workouts';
+
+async function getCollection() {
+    const db = await connect();
+    return db.collection(COLLECTION_NAME);
+}
 
 /**
  * Returns all products.
- * @returns {Workout[]} An array of workouts
+ * @returns {Promise<Workout[]>} An array of workouts
  */
-function getAll() {
-    return data.workouts;
+async function getAll() {
+    const col = await getCollection();
+    return col.find({}).toArray();
 }
 
 /**

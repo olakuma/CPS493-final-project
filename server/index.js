@@ -7,8 +7,6 @@ const workoutController = require('./controllers/workouts');
 const userController = require('./controllers/users');
 const app = express();  //instantiate express
 
-const mongo = require("./models/mongo");
-
 const PORT = process.env.PORT ?? 3000;
 
 app
