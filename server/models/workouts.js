@@ -18,61 +18,76 @@ async function getAll() {
 }
 
 /**
- * @param {number} id - The workout's ID.
+ * @param {string} id - The workout's ID.
  */
 
-function get(id) {
-    return data.workouts.find((workout) => workout.id === id);
+async function get(id) {
+    const col = await getCollection;
+    return await col.findOne({ _id: ObjectId(id) });
 }
 
-function getByEmail(email) {
-    return data.workouts.filter((workout) => workout.email === email);
+/**
+ * @param {string} email - The workout's email.
+ */
+
+async function getByEmail(email) {
+    const col = await getCollection;
+    return await col.findOne({ email });
 }
 
-function search(query) {
-    return data.workouts.filter((workout) => {
-      return (
-        workout.userName.toLowerCase().includes(query.toLowerCase()) ||
-        workout.workout.toLowerCase().includes(query.toLowerCase())
-      );
-    });
+async function search(query) {
+    const col = await getCollection();
+    const workouts = await col.find({
+        $or: [
+            { title: { $regrex: query, $options: 'i' } },
+            { description: { $regrex: query, $options: 'i' } },
+        ],
+    }).toArray
+    return workouts;
 }
 
 /**
  * 
  * @param {Workout} workout - The workout to see
- * @returns {Workout} The created workout
+ * @returns {Promise<Workout>} The created workout
  */
-function create(workout) {
+async function create(workout) {
     const newWorkout = {
         id: data.workouts.length + 1,
         ...workout,
     };
-    data.workouts.push(newWorkout);
+    const col = await getCollection();
+    const result = await col.insertOne(newWorkout);
+    newWorkout._id = result.insertedId;
+
     return newWorkout;
 }
 
-function update(workout) {
-    const index = data.workouts.findIndex((w) => w.id === workout.id);
-    if(index === -1) {
-        throw new Error('Workout not found');
-    }
-    data.workouts[index] = {
-        ...data.workouts[index],
-        ...workout,
-    };
-    return data.workouts[index];
+async function update(workout) {
+    const col = await getCollection();
+    const result = await col.findOneAndUpdate(
+        { _id: ObjectId(workout.id) },
+        { $set: workout },
+        { returnDocument: 'after' }
+    );
+    return result;
 }
 
 /**
  * @param {number} id - The workout's ID.
  */
-function remove(id) {
-    const index = data.workouts.findIndex((w) => w.id === id);
-    if(index === -1) {
+async function remove(id) {
+    const col = await getCollection();
+    const result = await col.deleteOne({ _id: ObjectId(id) });
+    if(result.deletedCount === 0) {
         throw new Error('Workout not found');
     }
-    data.workouts.splice(index, 1);
+}
+
+async function seed() {
+    const col = await getCollection();
+
+    await col.insertMany(data.workouts);
 }
 
 module.exports = {
@@ -83,4 +98,7 @@ module.exports = {
     create,
     update,
     remove,
+    getCollection,
+    COLLECTION_NAME,
+    seed
 };
