@@ -1,14 +1,17 @@
 <script setup lang="ts">
     import AddWorkoutBadge from '@/components/AddWorkoutBadge.vue';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import { deleteWorkout, getWorkouts, type Workout } from '@/model/workouts';
     import { getSession } from '@/model/session';
 
-    const workouts = ref(getWorkouts())
+    // const workouts = ref(getWorkouts())
     const session = getSession();
     const user = getSession().user;
-
-    const role = session.user?.role
+    const role = session.user?.role;
+    const workouts = ref<Workout[]>([]);
+        onMounted(async () => {
+            workouts.value = await getWorkouts();
+        });
     
 </script>
 

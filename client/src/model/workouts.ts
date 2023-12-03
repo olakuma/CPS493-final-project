@@ -1,5 +1,6 @@
 import data from "@/data/workouts.json"
 import { ref } from "vue"
+import { api } from "./session";
 
 export interface Workout {
     firstName: string
@@ -18,8 +19,8 @@ export interface Workout {
 }
 const workouts = ref(data.workouts.map( x => ({...x}) ) as Workout[])
 
-export function getWorkouts() {
-    return workouts;
+export function getWorkouts(): Promise<Workout[]> {
+    return api('workouts');
 }
 
 export function getWorkoutByEmail(email: string | undefined): Workout[] {

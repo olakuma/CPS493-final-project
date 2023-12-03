@@ -7,10 +7,6 @@
     import UpdateUser from '@/components/UpdateUser.vue';
 
     const session = getSession(); 
-    // const users = ref([] as User[])
-    // getUsers().then((data) => {
-    //     users.value = data;
-    // })
     const users = ref([] as User[])
     onMounted(async () => {
         users.value = await getUsers();
