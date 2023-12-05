@@ -21,6 +21,12 @@ app
         next();
     })
 
+    .use((req, res, next) => {
+        console.log(`Request: ${req.method} ${req.url}`);
+        console.log(`Authorization: ${req.headers.authorization}`);
+        next();
+    })
+
     .use('/api/v1/workouts', workoutController)
     .use('/api/v1/users', userController)
 
