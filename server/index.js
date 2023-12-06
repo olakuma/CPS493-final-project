@@ -5,6 +5,7 @@ const express = require('express');
 require('dotenv').config();
 const workoutController = require('./controllers/workouts');
 const userController = require('./controllers/users');
+const { parseAuthorizationToken, requireUser } = require('./middleware/authorization')
 const app = express();  //instantiate express
 
 const PORT = process.env.PORT ?? 3000;
@@ -18,16 +19,15 @@ app
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods');
         res.header('Access-Control-Allow-Headers', '*');
+        if(req.method === 'OPTIONS') {
+            return res.send(200);
+        }
         next();
     })
 
-    .use((req, res, next) => {
-        console.log(`Request: ${req.method} ${req.url}`);
-        console.log(`Authorization: ${req.headers.authorization}`);
-        next();
-    })
+    .use(parseAuthorizationToken)
 
-    .use('/api/v1/workouts', workoutController)
+    .use('/api/v1/workouts', requireUser(), workoutController)
     .use('/api/v1/users', userController)
 
     .get('*', (req, res) => {
