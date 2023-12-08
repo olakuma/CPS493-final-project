@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
         }
     }).catch(next)
 })
-.post('/', requireUser(), (req, res, next) => {
+.post('/', (req, res, next) => {
 
     register(req.body)
     .then((user) => {

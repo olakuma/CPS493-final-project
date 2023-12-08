@@ -70,6 +70,7 @@ async function register(user) {
   const users = await getAll();
   const newUser = {
     id: users.length + 1,
+    isAdmin: "No",
     ...user,
   };
   
