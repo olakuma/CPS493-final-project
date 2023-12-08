@@ -18,7 +18,7 @@ export function getUsers(): Promise<User[]> {
     return api("users");
 }
 
-export async function getUserByEmail(email: string) : Promise<User | null> {
+export async function getUserByEmail(email: string) {
     const users = await getUsers();
     return users.find( x => x.email === email );
 }

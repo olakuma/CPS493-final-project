@@ -75,7 +75,7 @@ export async function useLogin1(email: string, password: string): Promise<User>{
     return person.user
 }
 
-export async function addUser(user: User): Promise<User> {
+export async function addUser(user: User) {
     await api(`users/`, user, 'POST');
     toast.success("Registration successful!!!");
     toast.success("Proceed to the Login Page");
