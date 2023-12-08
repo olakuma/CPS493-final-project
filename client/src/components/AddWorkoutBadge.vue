@@ -10,6 +10,8 @@
     
     const isActive = ref(false);
 
+    const emits = defineEmits(['updateView'])
+
     const toggleModal = () => {
         isActive.value = !isActive.value;
     }
@@ -35,7 +37,7 @@
     const time = ref("5 secs ago");
     const location = ref("- at ")
 
-    function addNewWorkout(currentUser: string, id: number, fname: string, lname: string, workout: string, duration: string, distance: string, time: string, userName: string, location: string) {
+    async function addNewWorkout(currentUser: string, id: number, fname: string, lname: string, workout: string, duration: string, distance: string, time: string, userName: string, location: string) {
         const newWorkout: Workout = {
             id: workout.length + 1,
             email: currentUser,
@@ -48,7 +50,9 @@
             userName: userName,
             location: location,
         }
-        addWorkout(newWorkout)
+        await addWorkout(newWorkout)
+  
+        emits('updateView');
         closeModal()
     }
 </script>
@@ -86,11 +90,7 @@
                         <label class="label" for="location"> Location </label>
                         <input class="input" type="text" v-model="location">
                     </div>
-                    <div class="field">
-                        <label class="label" for="picture"> Picture </label>
-                        <input class="input" type="text">
-                    </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label class="label" for="type"> Type </label>
                         <div class="select is-fullwidth">
                             <select name=" ">
@@ -104,7 +104,7 @@
                                 <option> Other </option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success" type="submit"> Add Workout </button>

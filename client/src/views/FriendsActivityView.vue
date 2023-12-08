@@ -23,6 +23,10 @@
             console.error('Error deleting workout:', error);
         }
     };
+
+    const handleUpdateFromAddWorkoutBadge = async () => {
+        workouts.value = await getWorkouts();
+    }
     
 </script>
 
@@ -32,7 +36,7 @@
             <h1 class="title"> Friends Activity </h1>
             <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
-                    <AddWorkoutBadge />
+                    <AddWorkoutBadge @update-view="handleUpdateFromAddWorkoutBadge"/>
                     <br>
                     <article class="media box" v-for="workout in workouts">
                         <figure class="media-left">

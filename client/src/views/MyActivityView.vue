@@ -15,11 +15,16 @@
         try {
             await deleteWorkout(id);
             // Update the UI by removing the deleted user from the users array
-            workouts.value = workouts.value.filter(workout => workout.id !== workout.id);
+            workouts.value = workouts.value.filter(workout => workout.id !== id);
         } catch (error) {
             console.error('Error deleting workout:', error);
         }
     };
+
+    // handleUpdatefromAddWorkoutBadge
+    const handleUpdateFromAddWorkoutBadge = async () => {
+        workouts.value = await getWorkouts();
+    }
 </script>
 
 <template>
@@ -28,7 +33,7 @@
             <h1 class="title"> My Activity </h1>
             <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
-                    <AddWorkoutBadge />
+                    <AddWorkoutBadge @update-view="handleUpdateFromAddWorkoutBadge"/>
                     <br>
                     <div v-for="workout in workouts" :key="workout.email">
                         <article class="media box" v-if="workout.email === user?.email">
