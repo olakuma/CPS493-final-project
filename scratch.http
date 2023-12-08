@@ -6,6 +6,9 @@ http://localhost:3000
 http://localhost:3000/api/v1/workouts
 
 ###
+DELETE http://localhost:3000/api/v1/workouts/1
+
+###
 POST http://localhost:3000/api/v1/workouts
 Content-Type: application/json
 
@@ -20,3 +23,41 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/api/v1/workouts/seed
+
+###
+http://localhost:3000/api/v1/users
+
+###
+POST http://localhost:3000/api/v1/users/seed
+
+###
+DELETE http://localhost:3000/api/v1/users/1
+
+###
+PATCH http://localhost:3000/api/v1/users/1
+Content-Type: application/json
+
+{
+  "firstName": "Ola"
+}
+
+###
+POST http://localhost:3000/api/v1/users/register
+Content-Type: application/json
+
+{
+  "firstName": "Moshe",
+  "lastName": "Plotkin",
+  "email": "plotkinm@newpaltz.edu",
+  "password": "12345678"
+}
+
+///login user
+###
+POST http://localhost:3000/api/v1/users/login
+Content-Type: application/json
+
+{
+  "email": "plotkinm@newpaltz.edu",
+  "password": "12345678"
+}

@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import { getSession } from '@/model/session';
-    import { getUsers, type User } from '@/model/users';
-    import { deleteUser } from '@/model/users';
+    import { getUsers, type User, deleteUser } from '@/model/users';
     import { onMounted, ref } from 'vue';
     import AddUser from '@/components/AddUser.vue';
     import UpdateUser from '@/components/UpdateUser.vue';
@@ -13,6 +12,21 @@
     });
 
     const role = session.user?.role
+    const handleDeleteUser = async (id: number) => {
+    try {
+        await deleteUser(id);
+        // Update the UI by removing the deleted user from the users array
+        users.value = users.value.filter(user => user.id !== id);
+    } catch (error) {
+        console.error('Error deleting user:', error);
+    }
+};
+
+//handleUpdateFromAddUser
+const handleUpdateFromAddUser = async () => {
+
+    users.value = await getUsers();
+}
 
 </script>
 
@@ -26,7 +40,7 @@
             </ul>
         </nav>
         <div>
-            <AddUser />
+            <AddUser @update-view="handleUpdateFromAddUser" />
         </div>
         <br>
         <div>
@@ -53,7 +67,7 @@
                         <td>
                             <UpdateUser :email="user.email" />
                             &#160
-                            <button class="button is-small is-danger" @click.prevent="deleteUser(user)">
+                            <button class="button is-small is-danger" @click.prevent=" handleDeleteUser(user.id)">
                                 <span class="icon">
                                     <i class="fas fa-trash"></i>
                                 </span>

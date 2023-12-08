@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { api } from "./session";
 
 export interface User {
-    id?: number,
+    id: number,
     firstName: string,
     lastName: string,
     email: string,
@@ -18,22 +18,18 @@ export function getUsers(): Promise<User[]> {
     return api("users");
 }
 
-export async function getUserByEmail(email: string) : Promise<User | undefined> {
+export async function getUserByEmail(email: string) : Promise<User | null> {
     const users = await getUsers();
     return users.find( x => x.email === email );
 }
 
-export async function deleteUser(user: User) {
-    const users = await getUsers();
-    const index = users.findIndex( x => x.email === user.email );
-    if (index !== -1) {
-        users.splice(index, 1);
+export async function deleteUser(id: number): Promise<User | null> {
+    try {
+        await api(`users/${id}`, undefined, 'DELETE');
+    } catch (error) {
+        console.error("Error calling API:", error)
     }
-}
-
-export async function addUser(user: User) {
-    const users = await getUsers();
-    users.push(user);
+    return null;
 }
 
 export async function updateUser(user: User) {

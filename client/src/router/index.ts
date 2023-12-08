@@ -45,6 +45,11 @@ const router = createRouter({
       name: 'users',
       component: () => import('../views/UsersView.vue'),
       beforeEnter: requireLogin
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('../views/signUpView.vue'),
     }
   ]
 })

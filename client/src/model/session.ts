@@ -1,12 +1,13 @@
 import { reactive } from "vue";
-import { type User, getUserByEmail } from "./users";
+import { type User } from "./users";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import * as myFetch from "./myFetch"
 
 const toast = useToast();
+const router = useRouter();
 
-const session = reactive({
+export const session = reactive({
     user: null as User | null,
     token: null as string | null,
     redirectUrl: null as string | null,
@@ -57,15 +58,27 @@ export function useLogin() {
     }
 }
 
-export async function login(email: string, password: string): Promise<User | null> {
-    const user = await getUserByEmail(email);
-    if(user && user.password == password) {
-        session.user = user;
-        return user;
-    }
-    return null;
-}
-
 export function logout() {
     session.user = null;
+}
+
+export async function useLogin1(email: string, password: string): Promise<User>{
+
+    const person = await api("users/login", {email, password}, "POST")
+
+    console.log(person)
+    session.user = person.user;
+
+    if(session.user){
+        session.user.token = person.token;
+    }
+    return person.user
+}
+
+export async function addUser(user: User): Promise<User> {
+    await api(`users/`, user, 'POST');
+    toast.success("Registration successful!!!");
+    toast.success("Proceed to the Login Page");
+    router.push(session.redirectUrl || "/");
+    session.redirectUrl = null
 }

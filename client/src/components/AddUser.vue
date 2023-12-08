@@ -1,6 +1,7 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import { addUser, getUsers, type User } from '@/model/users'
+    import { onMounted, ref } from 'vue';
+    import { getUsers, type User } from '@/model/users'
+    import { addUser } from '@/model/session';
 
     const isActive = ref(false);
 
@@ -20,6 +21,7 @@
     }
 
     const usersRef = ref(getUsers());
+    const emits = defineEmits(['updateView'])
     const users = usersRef.value; // Extract the value from the Ref object
 
     const firstName = ref("");
@@ -39,11 +41,12 @@
             userName: userName,
             isAdmin: isAdmin
         }
-        addUser(newUser)
+        await addUser(newUser);
+
+        // emit
+        emits('updateView');
         closeToggle()
     }
-
-
 </script>
 
 <template>

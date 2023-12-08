@@ -1,31 +1,46 @@
 const express = require('express');
-const { getAll, get, search, create, update, remove, login, register } = require('../models/users');
+const { getAll, get, search, update, remove, login, register, seed } = require('../models/users');
 const { requireUser } = require('../middleware/authorization')
 const router = express.Router();
 
-router.get('/', requireUser(true), (req, res, next) => {
+router.get('/', (req, res, next) => {
 
-    res.send(getAll());
+    getAll()
+    .then((users) => {
+        res.send(users);
+    }).catch(next);
 })
-.get('/search', requireUser(), (req, res, next) => {
+.get('/search', (req, res, next) => {
 
-    const results = search(req.query.q);
-    res.send(results);
+    search(req.query.q)
+    .then((results) => {
+        res.send(results);
+    }).catch(next);
 })
-.get('/:id', requireUser(), (req, res, next) => {
+.get('/:id', (req, res, next) => {
 
-    const user = get(+req.params.id);
-    res.send( user );
+    get(+req.params.id)
+    .then((user) => {
+        if(user) {
+            res.send(user);
+        } else {
+            res.status(404).send({error: 'User not found'});
+        }
+    }).catch(next)
 })
-.post('/', requireUser(), (req, res, next) => {
+.post('/', (req, res, next) => {
 
-    const user = create(req.body);
-    res.send(user);
+    register(req.body)
+    .then((user) => {
+        res.send(user);
+    }).catch(next);
 })
 .post('/register', (req, res, next) => {
 
-    const user = register(req.body);
-    res.send(user);
+    register(req.body)
+    .then((user) => {
+        res.send(user);
+    }).catch(next);
 })
 .post('/login', (req, res, next) => {
 
@@ -34,22 +49,25 @@ router.get('/', requireUser(true), (req, res, next) => {
         res.send(user);
     }).catch(next);
 })
-.patch('/:id', requireUser(), (req, res, next) => {
+.patch('/:id', (req, res, next) => {
 
-    if(req.user.id !== +req.params.id && !req.user.admin) {
-        return next({
-            status: 403,
-            message: 'You can only edit your own account. (Unless you are an admin)'
-        });
-    }
     req.body.id = +req.params.id;
-    const user = update(req.body);
-    res.send(user);
+    update(req.body)
+    .then((user) => {
+        res.send(user);
+    }).catch(next);
 })
-.delete('/:id', requireUser(true), (req, res, next) => {
-
-    remove(+req.params.id);
-    res.send({message: 'User removed'});
+.delete('/:id', (req, res, next) => {
+    remove(+req.params.id)
+    .then(() => {
+        res.send({message: 'User removed'});
+    }).catch(next);
+})
+.post('/seed', (req, res, next) => {
+    seed()
+    .then(() => {
+        res.send({message: 'Users seeded'})
+    }).catch(next);
 });
 
 module.exports = router;

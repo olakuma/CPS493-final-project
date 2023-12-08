@@ -11,7 +11,11 @@
 
     const toggle = async () => {
         isActive.value = !isActive.value;
-        user.value = await getUserByEmail(props.email)
+        // user.value = await getUserByEmail(props.email)
+        const fetchedUser = await getUserByEmail(props.email);
+        if (fetchedUser !== null) {
+            user.value = fetchedUser;
+        }
     }
 
     const closeToggle = () => {

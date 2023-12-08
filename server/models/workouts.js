@@ -78,7 +78,7 @@ async function update(workout) {
  */
 async function remove(id) {
     const col = await getCollection();
-    const result = await col.deleteOne({ _id: ObjectId(id) });
+    const result = await col.deleteOne({ id: id });
     if(result.deletedCount === 0) {
         throw new Error('Workout not found');
     }

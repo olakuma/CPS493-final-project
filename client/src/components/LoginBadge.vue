@@ -35,30 +35,12 @@
     </div>
     <div class="buttons" v-else>
         <a class="button is-primary">
-            <strong>Sign up</strong>
+            <RouterLink to="/signup">Sign Up</RouterLink>
         </a>
 
-        <div class="dropdown" :class="{ 'is-active' : isActive }" @click="isActive = !isActive">
-            <div class="dropdown-trigger">
-                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                    <span>Log in</span>
-                    <span class="icon is-small">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </button>
-            </div>
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                <div class="dropdown-content">
-                    <a v-for="user in users" class="dropdown-item" @click.prevent="doLogin(user.email, user.password)">
-                        {{ user.firstName }} {{ user.lastName }}
-                    </a>
-                    <hr class="dropdown-divider">
-                    <a class="dropdown-item">
-                        Other Account
-                    </a>
-                </div>
-            </div>
-        </div>
+        <a class="button is-primary">
+            <RouterLink to="/login">Login</RouterLink>
+        </a>
     </div>
 </template>
 

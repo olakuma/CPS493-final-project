@@ -17,8 +17,8 @@ app
     // CORS
     .use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods');
-        res.header('Access-Control-Allow-Headers', '*');
+        res.header('Access-Control-Allow-Methods', "*");
+        res.header('Access-Control-Allow-Headers', ['*', "Authorization"]);
         if(req.method === 'OPTIONS') {
             return res.send(200);
         }
@@ -27,7 +27,7 @@ app
 
     .use(parseAuthorizationToken)
 
-    .use('/api/v1/workouts', requireUser(), workoutController)
+    .use('/api/v1/workouts', workoutController)
     .use('/api/v1/users', userController)
 
     .get('*', (req, res) => {

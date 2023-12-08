@@ -1,4 +1,4 @@
-// @ts-check
+
 /**
  * @typedef {Object} User
  * @property {number} id - The user's ID.
@@ -18,6 +18,7 @@
  */
 const data = require("../data/users.json");
 const jwt = require("jsonwebtoken");
+const { ObjectId, connect } = require('./mongo');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
@@ -25,120 +26,105 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 /**
 * @returns {User[]} An array of products.
 */
-function getAll() {
- return data.users;
+
+const COLLECTION_NAME = 'users';
+
+async function getCollection() {
+  const db = await connect();
+  return db.collection(COLLECTION_NAME);
+}
+
+async function getAll() {
+  const col = await getCollection();
+  return col.find({}).toArray();
 }
 
 /**
 * @param {number} id - The product's ID.
 */
-function get(id) {
- const item = data.users.find(x => x.id === id);
- if(!item) {
-   throw new Error('User not found');
- }
- return item
+async function get(id) {
+  const col = await getCollection();
+  return await col.findOne({ id: id});
 }
 
-function search(query) {
-  return data.users.filter(x => {
-    return (
-      x.firstName.toLowerCase().includes(query.toLowerCase()) ||
-      x.lastName.toLowerCase().includes(query.toLowerCase()) ||
-      x.email.toLowerCase().includes(query.toLowerCase()) ||
-      x.userName.toLowerCase().includes(query.toLowerCase()) 
-    );
-  });
-}
-
-/**
-* @param {User} values - The user to create.
-* @returns {User} The created user.
-*/
-function create(values) {
-  const newItem = {
-    id: data.users.length + 1,
-    ...values,
-  };
-
-  data.users.push(newItem);
-  return newItem;
+async function search(query) {
+  const col = await getCollection();
+  const users = await col.find({
+    $or: [
+      { firstName: { $regex: query, $options: 'i' } },
+      { lastName: { $regex: query, $options: 'i' } },
+      { email: { $regex: query, $options: 'i' } },
+      { userName: { $regex: query, $options: 'i' } },
+    ],
+  }).toArray();
+  return users;
 }
 
 /**
 * @param {User} values - The user to create.
-* @returns {User} The created user.
+* @returns {Promise<User>} The created user.
 */
-function register(values) {
-  // register is like create but with validation
-  // and some extra logic
 
-  const exists = data.users.some(x => x.userName === values.userName);
-  if(exists) {
-    throw new Error('Username already exists');
-  }
+async function register(user) {
 
-  if(values.password.length < 8) {
-    throw new Error('Password must be at least 8 characters');
-  }
-
-  // TODO: Make sure user is create with least privileges
-
-  const newItem = {
-    id: data.users.length + 1,
-    ...values,
+  const users = await getAll();
+  const newUser = {
+    id: users.length + 1,
+    ...user,
   };
-
-  data.users.push(newItem);
-  return newItem;
+  
+  const col = await getCollection();
+  const result = await col.insertOne(newUser);
+  newUser._id = result._id;
+  return newUser;
 }
 
 /**
 * @param {string} email
 * @param {string} password
-* @returns {Promise<{ user: User, token: string }>} The created user.
+* @returns {Promise<{ user: userInfo, token: string }>} The created user.
 */
 async function login(email, password) {
 
-  const item = data.users.find(x => x.email === email);
-  if(!item) {
+  if(!email || !password) {
+    throw new Error('Email and password are required');
+  }
+  const col = await getCollection();
+  const user = await col.findOne({ email });
+  if(!user) {
     throw new Error('User not found');
+  } else if(user.password !== password || user.email !== email) {
+    throw new Error('Invalid email or password');
   }
-
-  if(item.password !== password) {
-    throw new Error('Wrong password');
-  }
-
-  const user = { ...item, password: undefined }
+  
+  const userInfo = { ...user, password: undefined, admin: "true" };
   const token = await generateJWT(user);
-  return { user, token };
+  return { user: userInfo, token };
 }
 
-/**
-* @param {User} newValues - The user's new data.
-* @returns {User} The updated user.
-*/
-function update(newValues) {
-  const index = data.users.findIndex(p => p.id === newValues.id);
-  if(index === -1) {
-    throw new Error('User not found');
-  }
-  data.users[index] = {
-    ...data.users[index],
-    ...newValues,
-  };
-  return data.users[index];
+async function update(user) {
+  const col = await getCollection();
+  const result = await col.findOneAndUpdate(
+    { id: user.id }, 
+    { $set : user },
+    { returnDocument: 'after' }
+  );
+  return result;
 }
 
 /**
 * @param {number} id - The user's ID.
 */
-function remove(id) {
-  const index = data.users.findIndex(x => x.id === id);
-  if(index === -1) {
-    throw new Error('User not found');
-  }
-  data.users.splice(index, 1);
+async function remove(id) {
+  const col = await getCollection();
+  const result = await col.deleteOne({ id: id });
+  return result.deletedCount
+}
+
+async function seed() {
+  const col = await getCollection();
+
+  await col.insertMany(data.users);
 }
 
 function generateJWT(user) {
@@ -166,5 +152,5 @@ function verifyJWT(token) {
 }
 
 module.exports = {
- getAll, get, search, create, update, remove, login, register, generateJWT, verifyJWT
+ getAll, get, search, update, remove, login, register, generateJWT, verifyJWT, getCollection, COLLECTION_NAME, seed
 };
