@@ -25,6 +25,7 @@
     }
 
     const currentUser = email;
+    const id = ref(0)
     const fname = ref(session.user?.firstName || '');
     const lname = ref(session.user?.lastName || '');
     const userName = ref(session.user?.userName || '');
@@ -34,8 +35,9 @@
     const time = ref("5 secs ago");
     const location = ref("- at ")
 
-    function addNewWorkout(currentUser: string, fname: string, lname: string, workout: string, duration: string, distance: string, time: string, userName: string, location: string) {
+    function addNewWorkout(currentUser: string, id: number, fname: string, lname: string, workout: string, duration: string, distance: string, time: string, userName: string, location: string) {
         const newWorkout: Workout = {
+            id: workout.length + 1,
             email: currentUser,
             firstName: fname,
             lastName: lname,
@@ -53,7 +55,7 @@
 
 <template>
     <button class="button is-info is-fullwidth" @click.prevent="toggleModal">Add Workout</button>
-    <form @submit.prevent="addNewWorkout(currentUser, fname, lname, workout, duration, distance, time, userName, location)">
+    <form @submit.prevent="addNewWorkout(currentUser, id,fname, lname, workout, duration, distance, time, userName, location)">
         <div class="modal" :class="{ 'is-active' : isActive }" @click="isActive = !isActive"> 
             <div class="modal-background" @click.prevent="closeModal"></div>
             <div class="modal-card" @click.stop>
