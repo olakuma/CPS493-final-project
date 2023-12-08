@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
         res.send(users);
     }).catch(next);
 })
-.get('/search', (req, res, next) => {
+.get('/search', requireUser(), (req, res, next) => {
 
     search(req.query.q)
     .then((results) => {
@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
         }
     }).catch(next)
 })
-.post('/', (req, res, next) => {
+.post('/', requireUser(), (req, res, next) => {
 
     register(req.body)
     .then((user) => {
@@ -49,7 +49,7 @@ router.get('/', (req, res, next) => {
         res.send(user);
     }).catch(next);
 })
-.patch('/:id', (req, res, next) => {
+.patch('/:id', requireUser(true), (req, res, next) => {
 
     req.body.id = +req.params.id;
     update(req.body)

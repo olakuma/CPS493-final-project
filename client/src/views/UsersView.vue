@@ -13,14 +13,14 @@
 
     const role = session.user?.role
     const handleDeleteUser = async (id: number) => {
-    try {
-        await deleteUser(id);
-        // Update the UI by removing the deleted user from the users array
-        users.value = users.value.filter(user => user.id !== id);
-    } catch (error) {
-        console.error('Error deleting user:', error);
-    }
-};
+        try {
+            await deleteUser(id);
+            // Update the UI by removing the deleted user from the users array
+            users.value = users.value.filter(user => user.id !== id);
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
 
 //handleUpdateFromAddUser
 const handleUpdateFromAddUser = async () => {

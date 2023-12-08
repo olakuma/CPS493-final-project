@@ -6,12 +6,20 @@
     
     const user = getSession().user;
 
-    // const workouts = ref(getWorkouts())
     const workouts = ref<Workout[]>([]);
-        onMounted(async () => {
-            workouts.value = await getWorkouts();
-        });
+    onMounted(async () => {
+        workouts.value = await getWorkouts();
+    });
 
+    const deleteWorkoutHandler = async (id: number) => {
+        try {
+            await deleteWorkout(id);
+            // Update the UI by removing the deleted user from the users array
+            workouts.value = workouts.value.filter(workout => workout.id !== workout.id);
+        } catch (error) {
+            console.error('Error deleting workout:', error);
+        }
+    };
 </script>
 
 <template>
@@ -71,7 +79,7 @@
                                 </nav>
                             </div>
                             <div class="media-right">
-                                <button class="delete" aria-label="close" @click.prevent="deleteWorkout(workout)"></button>
+                                <button class="delete" aria-label="close" @click.prevent="deleteWorkoutHandler(workout.id)"></button>
                             </div>
                         </article>
                     </div>

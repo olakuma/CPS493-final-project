@@ -9,9 +9,20 @@
     const user = getSession().user;
     const role = session.user?.role;
     const workouts = ref<Workout[]>([]);
-        onMounted(async () => {
-            workouts.value = await getWorkouts();
-        });
+
+    onMounted(async () => {
+        workouts.value = await getWorkouts();
+    });
+
+    const handleDeleteWorkout = async (id: number) => {
+        try {
+            await deleteWorkout(id);
+            // Update the UI by removing the deleted user from the users array
+            workouts.value = workouts.value.filter(workout => workout.id !== id);
+        } catch (error) {
+            console.error('Error deleting workout:', error);
+        }
+    };
     
 </script>
 
@@ -71,7 +82,7 @@
                             </nav>
                         </div>
                         <div class="media-right">
-                            <button class="delete" aria-label="close" @click.prevent="deleteWorkout(workout)" v-if="role === 'admin'"></button>
+                            <button class="delete" aria-label="close" @click.prevent="handleDeleteWorkout(workout.id)" v-if="role === 'admin'"></button>
                         </div>
                     </article>
                 </div>
