@@ -28,6 +28,11 @@ const handleUpdateFromAddUser = async () => {
     users.value = await getUsers();
 }
 
+//handleUpdateFromEditUser
+const handleUpdateFromEditUser = async () => {
+
+    users.value = await getUsers();
+}
 </script>
 
 <template>
@@ -65,7 +70,7 @@ const handleUpdateFromAddUser = async () => {
                         <td> {{ user.userName }} </td>
                         <td> {{ user.isAdmin }} </td>
                         <td>
-                            <UpdateUser :email="user.email" />
+                            <UpdateUser :email="user.email" @update-view="handleUpdateFromAddUser"/>
                             &#160
                             <button class="button is-small is-danger" @click.prevent=" handleDeleteUser(user.id)">
                                 <span class="icon">

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-    import { updateUser, getUserByEmail, type User } from '@/model/users';
+    import { userUpdate, getUserByEmail, type User } from '@/model/users';
     import { ref, defineProps } from 'vue';
 
+    const emits = defineEmits(['updateView'])
     const props = defineProps<{
         email: string
     }>()
@@ -22,12 +23,16 @@
         isActive.value = false;
     }
 
-    function editExistingUser() {
-        if(user.value){
-            updateUser(user.value)
+    const editExistingUser = async () => {
+        if (user.value) {
+            const { id, firstName, lastName, email, userName, isAdmin } = user.value;
+            await userUpdate().updateUser(id, { firstName, lastName, email, userName });
+            await userUpdate().updateAdmin(id, isAdmin);
         }
-        closeToggle()
+        emits('updateView');
+        closeToggle();
     }
+
 </script>
 
 <template>
