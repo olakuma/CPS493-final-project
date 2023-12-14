@@ -3,13 +3,8 @@
     import { getSession, useLogin } from '@/model/session';
     import { getUsers, type User } from '@/model/users';
 
-    const isActive = ref(false);
     const session = getSession();
-    const { login, logout } = useLogin();
-
-    const doLogin = (email: string, password: string) => {
-        login(email, password);
-    }
+    const { logout } = useLogin();
 
     const doLogout = () => {
         logout();

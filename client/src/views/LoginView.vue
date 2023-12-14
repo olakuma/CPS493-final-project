@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import {ref} from "vue"
-import { useLogin1 } from "@/model/session";
+import { getSession, useLogin1 } from "@/model/session";
 import { useRouter } from "vue-router";
 import { type User }from "@/model/users"
 
 
 const router = useRouter();
 
+const session = getSession()
+
 const email = ref('');
 const password = ref('');
-
-
-const user1 = ref<User | null>(null);
 
 function login() {
     
     useLogin1(email.value, password.value).then((user) => {
 
-        if(user.firstName === null || user === undefined){
+        if(!session.user || user === undefined){
             console.log("user is null");
             return;
         } else{

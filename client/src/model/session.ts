@@ -62,17 +62,16 @@ export function logout() {
     session.user = null;
 }
 
-export async function useLogin1(email: string, password: string): Promise<User>{
+export async function useLogin1(email: string, password: string): Promise<User | null>{
 
     const person = await api("users/login", {email, password}, "POST")
 
-    console.log(person)
-    session.user = person.user;
+    session.user = person.userInfo;
 
     if(session.user){
         session.user.token = person.token;
     }
-    return person.user
+    return session.user
 }
 
 export async function addUser(user: User) {

@@ -32,15 +32,6 @@ export async function deleteUser(id: number): Promise<User | null> {
     return null;
 }
 
-// export async function updateUser(user: User) {
-//     // const users = await getUsers()
-//     // const index = users.findIndex( x => x.id === user.id );
-//     // if (index !== -1) {
-//     //     users[index] = user;
-//     // }
-//     return await api(`users/`, {...user, token: undefined}, 'PATCH');
-// }
-
 export function userUpdate() {
     const session = getSession();
     return {

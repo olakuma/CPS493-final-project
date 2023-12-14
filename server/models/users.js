@@ -70,6 +70,7 @@ async function register(user) {
   const users = await getAll();
   const newUser = {
     id: users.length + 1,
+    role: "user",
     isAdmin: "No",
     ...user,
   };
@@ -100,7 +101,7 @@ async function login(email, password) {
   
   const userInfo = { ...user, password: undefined, admin: "true" };
   const token = await generateJWT(user);
-  return { user: userInfo, token };
+  return { userInfo, token };
 }
 
 async function update(user) {
