@@ -40,3 +40,7 @@ export async function addWorkout(workout: Workout) {
     await api(`workouts/`, workout, 'POST');
     toast.success("You've succesfully added your workout");
 }
+
+export function searchWorkouts(query: string, page: number): Promise<Workout[]> {
+    return api(`workouts/search?q=${query}&page=${page}`)
+}

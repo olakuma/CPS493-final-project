@@ -36,13 +36,14 @@ async function getByEmail(email) {
 }
 
 async function search(query) {
+    console.log(query)
     const col = await getCollection();
     const workouts = await col.find({
         $or: [
             { title: { $regrex: query, $options: 'i' } },
             { description: { $regrex: query, $options: 'i' } },
         ],
-    }).toArray
+    }).toArray()
     return workouts;
 }
 
