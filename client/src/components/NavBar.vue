@@ -11,7 +11,8 @@ const isActive = ref(false);
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://bulma.io">
+                <a class="navbar-item" href="">
+                    <RouterLink to="/"></RouterLink>
                     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="28" height="28" />
                 </a>
 
@@ -35,7 +36,7 @@ const isActive = ref(false);
 
                     <a class="navbar-item">
                         <span class="icon">
-                            <i class="fas fa-person-running"></i>
+                            <i class="fas fa-running"></i>
                         </span>
                         <RouterLink to="/my-activity">My Activity</RouterLink>
                     </a>
@@ -49,7 +50,7 @@ const isActive = ref(false);
 
                     <a class="navbar-item">
                         <span class="icon">
-                            <i class="fas fa-people-group"></i>
+                            <i class="fas fa-user-friends"></i>
                         </span>
                         <RouterLink to="/friends-activity">Friends Activity</RouterLink>
                     </a>
@@ -68,7 +69,7 @@ const isActive = ref(false);
 
                         <div class="navbar-dropdown">
                             <a class="navbar-item">
-                                Users
+                                <RouterLink to="/users">Users</RouterLink>
                             </a>
                         </div>
                     </div>
